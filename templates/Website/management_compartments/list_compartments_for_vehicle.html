@@ -1,0 +1,67 @@
+{# Plantilla base #}{% extends '../layouts/base.html' %}
+{# Cargar assets #}{% load static %}
+{# Título de la página #} {% block title %}Gavetas por vehículo{% endblock %}
+
+        {% block content %}
+        <div class="center-container">
+                <div class="center-container__title">
+                        <h1>Buscar gaveta de almacenamiento por vehículo</h1>
+                </div>
+                <div class="center-container__list">
+                    <li style="list-style:inside;"><a href="{% url 'website-ruta_list_compartments' %}">Todos</a></li>
+                    {% for firetruck in firetrucks %}
+                    <li style="list-style:inside;"><a href="{% url 'website-ruta_list_compartments_for_vehicle' firetruck.id %}">{{firetruck.name|title}}</a></li>
+                    {% endfor %}
+                </div>
+
+                
+                <div class="center-container__title">
+                    <h1>{{firetruck.name|title}} ({{firetruck.type_fire_trucks.name|title}}): Gavetas de almacenamiento ({{ count_compartments }})</h1>
+                </div>
+                {% if compartments %}
+                
+                <table id="compartmentsTable" class="responsive-table1">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Cantidad de insumos</th>
+                            <th>Capacidad esperada</th>
+                            <th class="action-field">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for compartment in compartments %}
+                        <tr>
+                            <td>{{ compartment.id }}</td>
+                            <td>{{ compartment.name|title }}</td>
+                            {% if compartment.description %}
+                            <td>{{ compartment.description }}</td>
+                            {% else %}
+                            <td>Sin descripción</td>
+                            {% endif %}
+                            {% if compartment.total_items %}
+                            <td>{{compartment.total_items}}</td>
+                            {% else %}
+                            <td>Ninguno</td>
+                            {% endif %}
+                            {% if compartment.quantity %}
+                            <td>{{ compartment.quantity }}</td>
+                            {% else %}
+                            <td>Sin definir</td>
+                            {% endif %}
+
+                            <td class="action-field">
+                                <a href="{% url 'website-ruta_update_compartment' compartment.id %}" class="button_table back_green white"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="{% url 'website-ruta_delete_compartment' compartment.id %}" class="button_table back_red white"><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>No se encontraron gavetas</p>
+                {% endif %}
+        </div>
+        {% endblock  %}

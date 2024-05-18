@@ -1,0 +1,64 @@
+{# Plantilla base #}{% extends '../layouts/base.html' %}
+{# Cargar assets #}{% load static %}
+{# Título de la página #} {% block title %}Agregar vehículo{% endblock %}
+
+        {% block content %}
+        <div class="center-container">
+            <div class="center-container__title">
+                <h1>Agregar vehículo</h1>
+            </div>
+            <br>
+            <form id="VehicleForm" method="post" action="{% url 'website-ruta_add_vehicle' %}" enctype=multipart/form-data>
+            <br>
+                {# Nombre #}
+                <div class="input-box">
+                    {{form.nameField}}
+                </div>
+                {# Descripción #}
+                <div class="input-box">
+                    {{form.descriptionField}}
+                </div>
+                {# Patente #}
+                <div class="input-box">
+                    {{form.plateField}}
+                </div>
+                {# Modelo #}
+                <div class="input-box">
+                    {{form.modelField}}
+                </div>
+                {# Chasis #}
+                <div class="input-box">
+                    {{form.vinField}}
+                </div>
+                {# Año #}
+                <div class="input-box">
+                    {{form.yearField}}
+                </div>
+                {# Tipo de unidad #}
+                <div class="input-box">
+                    <select name="typeFireTruck" id="fireTruckType">
+                        <option value="0">Seleccionar tipo de unidad</option>
+                        {% for type in types %}
+                        <option value="{{type.id}}">{{type.name|title}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {# Imagen #}
+                <div class="input-file-box">
+                    <label for="inputImage">Seleccionar imagen</label>
+                    {{form.imageField}}
+                    <!--<input type="file" name="image" id="inputImage" class="form-control">-->
+                    <input type="hidden" name="picture" id="picture">
+                </div>
+                <br>
+                {% csrf_token %}
+                {# Caja de Botones #}
+                <div class="button-box2">
+                    {# Botón - Crear #}
+                    <button id="truckDoneButton" class="button back_blue white" type="submit">Crear vehículo</button>
+                    {# Botón - Volver #}
+                    <button id="back_btn" class="button back_red white" type="button"><i class="fa-sharp fa-solid fa-delete-left"></i> Volver</button>
+                </div>
+            </form>
+        </div>
+        {% endblock  %}

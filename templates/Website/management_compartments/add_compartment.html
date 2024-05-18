@@ -1,0 +1,39 @@
+{# Plantilla base #}{% extends '../layouts/base.html' %}
+{# Cargar assets #}{% load static %}
+{# Título de la página #} {% block title %}Agregar gaveta{% endblock %}
+
+        {% block content %}
+        <div class="center-container">
+            <div class="center-container__title">
+                <h1>Agregar gaveta</h1>
+            </div>
+            <br>
+            <form id="VehicleForm" method="post" action="{% url 'website-ruta_add_compartment' %}">
+            <br>
+                {# Nombre #}
+                <div class="input-box">
+                    {{form.nameField}}
+                </div>
+                {# Descripción #}
+                <div class="input-box">
+                    {{form.descriptionField}}
+                </div>
+                <div class="input-box">
+                    {{form.quantityField}}
+                </div>
+                {# Tipo de unidad #}
+                <div class="input-box">
+                    <select name="FireTruck" id="selectFireTruck"></select>
+                </div>
+                <br>
+                {% csrf_token %}
+                {# Caja de Botones #}
+                <div class="button-box2">
+                    {# Botón - Crear #}
+                    <button id="truckDoneButton" class="button back_blue white" type="submit">Crear gaveta</button>
+                    {# Botón - Volver #}
+                    <button id="back_btn" class="button back_red white" type="button"><i class="fa-sharp fa-solid fa-delete-left"></i> Volver</button>
+                </div>
+            </form>
+        </div>
+        {% endblock  %}

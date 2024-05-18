@@ -1,0 +1,209 @@
+{% extends '../layouts/base.html' %}
+{% load static %}
+{% block title %}Modificar insumo{% endblock %}
+
+        {% block content %}
+        <div class="center-container">
+            <div class="center-container__title">
+                <h1>Modificar insumo</h1>
+            </div>
+            <br>
+            <form id="InventoryForm" method="post" action="" enctype=multipart/form-data autocomplete="off">
+            <br>
+                {# SKU #}
+                <div class="input-box">
+                    <label class="labelForm" for="">Código (recomendado):</label>
+                    {{form.skuField}}
+                </div>
+                {# Nombre #}
+                <div class="input-box">
+                    <label class="labelForm" for="">Nombre:</label>
+                    {{form.nameField}}
+                </div>
+                <datalist id="item_names">
+                {% for name in item_names %}
+                    <option value="{{name}}"/>
+                {% endfor %}
+                </datalist>
+
+                {# Descripción #}
+                <div class="input-box">
+                    <label class="labelForm" for="">Descripción (opcional):</label>
+                    {{form.descriptionField}}
+                </div>
+                {# Precio #}
+                <div class="input-box">
+                    <label class="labelForm" for="">Precio (opcional):</label>
+                    {{form.priceField}}
+                </div>
+                {# Marca #}
+                <div class="input-box">
+                    <label class="labelForm" for="">Marca (opcional):</label>
+                    {{form.brandField}}
+                </div>
+                <datalist id="item_brands">
+                    {% for brand in brands %}
+                    <option value="{{brand}}"/>
+                    {% endfor %}
+                </datalist>
+
+                {# Modelo #}
+                <div class="input-box">
+                    <label class="labelForm" for="">Modelo (opcional):</label>
+                    {{form.modelField}}
+                </div>
+                <datalist id="item_models">
+                    {% for model in models %}
+                    <option value="{{model}}"/>
+                    {% endfor %}
+                </datalist>
+
+                {# Categoría #}
+                <div class="input-box">
+                    <label class="labelForm" for="">Categoría:</label>
+                    <select name="Category" id="selectCategory">
+                        <option value="{{item.inventory.categories_id}}" selected>{{item.inventory.categories.name}}</option>
+                    </select>
+                </div>
+                
+                <br>
+                {# UBICACION #}
+                <span for="">Ubicación: Puedes seleccionar la gaveta o directamente un elemento contenedor (en caso de que corresponda): Como cajas, bolsos, mochilas, etc.</span>
+                {# Unidad #}
+                <div class="input-box">
+                    <label class="labelForm" for="">Unidad:</label>
+                    <select name="FireTruck" id="selectFireTruck">
+                        {% if not item.inventory.container_id %}
+                        <option value="{{item.inventory.compartments.fire_trucks_id}}" selected>{{item.inventory.compartments.fire_trucks.name}}</option>
+                        {% endif %}
+                    </select>
+                </div>
+                {# Gaveta #}
+                <div class="input-box">
+                    <label class="labelForm" for="">Gaveta:</label>
+                    <select name="Compartment" id="selectCompartment">
+                        {% if not item.inventory.container_id %}
+                        <option value="{{item.inventory.compartments_id}}" selected>{{item.inventory.compartments.name}}</option>
+                        {% endif %}
+                    </select>
+                </div>
+                {# Contenedor #}
+                <div class="input-box">
+                    <label class="labelForm" for="">Contenedor (opcional):</label>
+                    <select name="Container" id="selectContainer">
+                        {% if item.inventory.container_id %}
+                        <option value="{{item.inventory.container_id}}" selected>{{item.inventory.container}}</option>
+                        {% endif %}
+                    </select>
+                </div>
+
+
+                <br>
+
+
+                {# Mantención programada #}
+                {% if item.inventory.maintenance_programs_id %}
+                <div class="inputcheck-box">
+                    <input type="checkbox" name="checkboxMaintenance1" id="checkboxMaintenance1" checked>
+                    <label for="checkboxMaintenance">Mantención Programada</label>
+                </div>
+                {# Programa de mantenimiento #}
+                <div class="input-box">
+                    <select name="MaintenancePrograms" id="selectMaintenancePrograms">
+                        <option value="{{item.inventory.maintenance_programs_id}}">{{item.inventory.maintenance_programs.name}}</option>
+                    </select>
+                </div>
+                {% elif not item.maintenance_programs_id %}
+                <div class="inputcheck-box">
+                    <input type="checkbox" name="checkboxMaintenance1" id="checkboxMaintenance1">
+                    <label for="checkboxMaintenance">Mantención Programada</label>
+                </div>
+                {# Programa de mantenimiento #}
+                <div class="input-box">
+                    <select name="MaintenancePrograms" id="selectMaintenancePrograms" hidden></select>
+                </div>
+                {% endif %}
+
+
+                <br>
+
+
+                {# Mantención por horas de uso #}
+                {% if item.inventory.maintenance_hour %}
+                <div class="inputcheck-box">
+                    <input type="checkbox" name="checkboxMaintenance2" id="checkboxMaintenance2" checked>
+                    <label for="checkboxMaintenance">Mantención por horas de uso</label>
+                </div>
+                {# Horas de uso #}
+                <div class="input-box">
+                    <label id="labelMaintenanceHour" class="labelForm" for="">Horas de uso para mantención (opcional):</label>
+                    {{form.maintenanceHourField}}
+                    <script>document.getElementById("inputMaintenanceHour").removeAttribute("hidden");</script>
+                </div>
+                {% elif not item.inventory.maintenance_hour %}
+                <div class="inputcheck-box">
+                    <input type="checkbox" name="checkboxMaintenance2" id="checkboxMaintenance2">
+                    <label for="checkboxMaintenance">Mantención por horas de uso</label>
+                </div>
+                {# Horas de uso #}
+                <div class="input-box">
+                    <label id="labelMaintenanceHour" class="labelForm" for="" hidden>Horas de uso para mantención (opcional):</label>
+                    {{form.maintenanceHourField}}
+                </div>
+                {% endif %}
+
+                <br>
+
+
+                {# Expiración #}
+                {% if item.inventory.expire_at %}
+                <div class="inputcheck-box">
+                    <input type="checkbox" name="checkboxExpiration" id="checkboxExpiration" checked>
+                    <label for="checkboxExpiration">Expiración</label>
+                </div>
+                {# Fecha de expiración #}
+                <div class="input-box">
+                    <label id="labelExpireDate" for="">Fecha de expiración</label>
+                    {{form.expireDateField}}
+                    <script>document.getElementById("inputExpireDate").removeAttribute("hidden");</script>
+                </div>
+                {# Notificación de expiración #}
+                <div class="input-box">
+                    <label id="labelExpireNotification" for="">Notificación anticipada</label>
+                    {{form.expireNotificationField}}
+                    <script>document.getElementById("inputExpireNotification").removeAttribute("hidden");</script>
+                    <span id="indicatorExpireNotification" for="" style="width: 100px;">{{item.inventory.expire_notification}} días</span>
+                </div>
+                {% elif not item.inventory.expire_at %}
+                <div class="inputcheck-box">
+                    <input type="checkbox" name="checkboxExpiration" id="checkboxExpiration">
+                    <label for="checkboxExpiration">Expiración</label>
+                </div>
+                {# Fecha de expiración #}
+                <div class="input-box">
+                    <label id="labelExpireDate" for="" hidden>Fecha de expiración</label>
+                    {{form.expireDateField}}
+                </div>
+                {# Notificación de expiración #}
+                <div class="input-box">
+                    <label id="labelExpireNotification" for="" hidden>Notificación anticipada</label>
+                    {{form.expireNotificationField}}
+                    <span id="indicatorExpireNotification" for="" style="width: 100px;" hidden></span>
+                </div>
+                {% endif %}
+
+
+                <br>
+
+
+                {% csrf_token %}
+                {# Caja de Botones #}
+                <div class="button-box2">
+                    {# Botón - Crear #}
+                    <button id="truckDoneButton" class="button back_blue white" type="submit">Modificar insumo</button>
+                    {# Botón - Volver #}
+                    <button id="back_btn" class="button back_red white" type="button"><i class="fa-sharp fa-solid fa-delete-left"></i> Volver</button>
+                </div>
+            </form>
+        </div>
+        {% endblock  %}

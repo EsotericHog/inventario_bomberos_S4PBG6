@@ -1,0 +1,56 @@
+{% extends '../layouts/base.html' %}
+{% load static %}
+{% load humanize %}
+{# Título de la página #} {% block title %}Insumos por lote{% endblock %}
+
+        {% block content %}
+        <div class="center-container">
+                <div class="center-container__title">
+                    <h1>Lista de insumos por lote</h1>
+                </div>
+                <div class="center-container__header">
+                    <!--Botón agregar insumo-->
+                    <a class="button back_blue white" href="{% url 'website-ruta_add_item' 2 %}">Agregar lote</a>
+                </div>
+                {% if items %}
+                <table id="itemsManyTable" class="responsive-table1 display">
+                    <thead>
+                        <tr>
+                            <th>Cantidad</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th class="action-field">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.count }}</td>
+                        
+                            <td title="{{ item.inventorymetadata.name }}">
+                                <b>{{ item.inventorymetadata__name|slice:":32" }}
+                                    {% if item.inventorymetadata__name|length > 32 %}...{% endif %}
+                                </b>
+                            </td>
+                            <td title="{{ item.categories.description }}">{{ item.categories__name|title }}</td>
+                            
+                            <td class="action-field">
+                                <a href="{% url 'website-ruta_list_items_many_detail' item.inventorymetadata__name %}" title="Ver insumos" class="button_table back_violet white"><i class="fa-solid fa-clipboard-list"></i> Detalle</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Cantidad</td>
+                            <td>Nombre</td>
+                            <td>Categoría</td>
+                            <td class="action-field">Acciones</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                {% else %}
+                <p>No se encontraron insumos</p>
+                {% endif %}
+        </div>
+        {% endblock  %}

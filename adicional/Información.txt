@@ -1,0 +1,46 @@
+CONFIGURACIÓN DE LA BASE DE DATOS
+
+nombre: S4PBG6DB (Debe ser creada)
+usuario: root
+contraseña: Pj5bV0s[CbL7(.yX	(Vacía para la entrega)
+puerto: 3306
+
+La configuración se encuentra desacoplada en Django_S4PBG6/conf.json
+----------------------------------------------------------------------------
+
+(IMPORTANTE) Luego de crear la base de datos y ejecutar las migraciones, importar el archivo "inserts DB.sql" directamente en la base de datos
+----------------------------------------------------------------------------
+CREDENCIALES DE SUPER USUARIO
+
+RUT(username):	19.980.425-1
+password:	12345678
+
+----------------------------------------------------------------------------
+PAQUETES
+
+pip install pyzbar
+pip install python-barcode
+pip install Pillow
+pip install mysqlclient
+----------------------------------------------------------------------------
+ANOTACIONES (ENTREGA 3)
+
+_(IMPORTANTE) No iniciar sesión desde el login de Django Admin. Cuando autentico al usuario en mi vista, genero variables de sesión que no supe cómo implementar en el login del backend, por lo que habrán errores.
+
+_Las opciones de menú "Gestión de operaciones", "Mantenimiento" y "Reporte" no pudieron ser terminadas por falta de tiempo. Gestión de operaciones estaba pensada para inventariar y actualizar las gavetas cada vez que ocurría una emergencia. Mantenimiento estaba pensado para mostrar los insumos sujetos a mantención, los programas de mantención, y todo lo relacionado con esto. Reporte era para generar un informe general con toda la información del sistema en un archivo PDF.
+
+_La página principal lamentablemente quedó en blanco. Esperaba terminar todo para llenarla.
+
+_Sólo pude ingresar los insumos en la cabina de la unidad R2.
+
+_Sólo hay un usuario (superuser). Los nuevos usuarios creados deben ser aprobados por el administrador.
+
+_La estación de bomberos del administrador corresponde a la Compañía Germania, por lo que los nuevos usuarios deben seleccionar esta compañía. Si no, no podrán ser aprobados, ya que no aparecerán en la lista.
+
+_Mi decorador @administrador empezó a dar problemas. Decidí quitarlo de todas las vistas.
+
+_No hay ninguna diferencia entre los roles de usuario. Acceso total por falta de decoradores.
+
+_Implementé el cambio de tema oscuro con el switch, aunque tiene defectos que no pude resolver por tiempo.
+
+_Si comienza a probar validaciones de formulario, probablemente encuentre errores en los CRUD de los primeros módulos que realicé, aunque si completa correctamente los campos obligatorios, no habrá problemas.

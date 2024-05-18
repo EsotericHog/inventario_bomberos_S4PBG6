@@ -1,0 +1,4 @@
+/* Clases de Bootstrap */
+.form-control {
+    font-size: var(--fs-type-small);
+}

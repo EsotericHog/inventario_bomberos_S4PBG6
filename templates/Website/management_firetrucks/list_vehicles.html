@@ -1,0 +1,105 @@
+{# Plantilla base #}{% extends '../layouts/base.html' %}
+{# Cargar assets #}{% load static %}
+{# Título de la página #} {% block title %}Vehículos{% endblock %}
+
+        {% block content %}
+        <div class="center-container">
+            <div class="center-container__title">
+                <h1>Vehículos</h1>
+            </div>
+            {% if firetrucks %}
+            <!--Bloque de tarjetas-->
+            <div class="block-cards">
+                {% for firetruck in firetrucks %}
+                <div class="item-card">
+                    <!--Imagen-->
+                    <div class="item-card__image">
+                        {% if firetruck.image %}
+                            <img src="../../../media/firetrucks/{{firetruck.image}}" alt="">
+                        {% else %}
+                            <img src="../../../media/firetrucks/default-firetruck.png" alt="">
+                        {% endif %}
+                    </div>
+
+                    <!--Contenido-->
+                    <div class="item-card__content">
+                        <div class="item-card__field">
+                            <a class="item-card__name" href=""><b>{{ firetruck.name|title }}</b></a>
+                        </div>
+                        <br>
+                        <div class="item-card__field">
+                            <b>Tipo:</b>
+                            <p class="item-card__type">{{ firetruck.type_fire_trucks.name|title }}</p>
+                        </div>
+                        <div class="item-card__field">
+                            <b>Patente:</b>
+                            <p class="item-card__plate">{{ firetruck.plate }}</p>
+                        </div>
+                        <div class="item-card__field">
+                            <b>Gavetas totales:</b>
+                            <p class="item-card__compartments-count">{{ firetruck.total_compartments }}</p>
+                        </div>
+                        <div class="item-card__field">
+                            <b>Insumos totales:</b>
+                            <p class="item-card__inventory-count">
+                                {{firetruck.total_items}}/
+                                {% if firetruck.max_quantity %}{{firetruck.max_quantity}}{% else %}0{% endif %}
+                            </p>
+                        </div>
+                        <div class="item-card__field">
+                            <b>Estado:</b>
+                            <p class="item-card__status" title="Para activar el estado, primero debes establecer cantidades esperadas de insumos en las gavetas">Desconocido</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="center-container__title">
+                <h1>Lista de vehículos bomberiles ({{ count_firetrucks }})</h1>
+            </div>
+            <div class="center-container__header">
+                <!--Botón agregar vehiculo-->
+                <a class="button back_blue white" href="{% url 'website-ruta_add_vehicle' %}">Nuevo vehículo</a>
+            </div>
+            
+            <table id="fireTrucksTable" class="responsive-table1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>Patente</th>
+                        <th>Modelo</th>
+                        <th>Año</th>
+                        <th>Gavetas</th>
+                        <th class="action-field">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for firetruck in firetrucks %}
+                    <tr>
+                        <td>{{ firetruck.id }}</td>
+                        <td><b>{{ firetruck.name|title }}</b></td>
+                        <td>{{ firetruck.type_fire_trucks.name|title }}</td>
+                        <td>{{ firetruck.description }}</td>
+                        <td>{{ firetruck.plate }}</td>
+                        <td>{{ firetruck.model|title }}</td>
+                        <td>{{ firetruck.year }}</td>
+                        <td>{{ firetruck.total_compartments }}</td>
+                        <td class="action-field">
+                            {% with vehicle_id=firetruck.id %}
+                            <a href="{% url 'website-ruta_update_vehicle' vehicle_id %}" class="button_table back_green white"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="{% url 'website-ruta_delete_vehicle' vehicle_id %}" class="button_table back_red white"><i class="fa-solid fa-trash"></i></a>
+                            {% endwith %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No se encontraron vehículos</p>
+            {% endif %}
+        </div>
+        {% endblock  %}

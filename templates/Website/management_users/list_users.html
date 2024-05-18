@@ -1,0 +1,56 @@
+{# Plantilla base #}{% extends '../layouts/base.html' %}
+{# Cargar assets #}{% load static %}
+{# Título de la página #} {% block title %}Usuarios{% endblock %}
+
+        {% block content %}
+        <div class="center-container">
+            <div class="center-container__title">
+                <h1>Lista de usuarios registrados ({{ count_users }})</h1>
+            </div>
+            <div class="center-container__header">
+                <!--Botón agregar usuario-->
+                <a class="button back_blue white" href="{% url 'website-ruta_add_user' %}">Nuevo usuario</a>
+            </div>
+            {% if active_users %}
+            <table id="usersTable" class="responsive-table1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>RUT</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Correo electrónico</th>
+                        <th>Rol</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for userMeta in active_users %}
+                    <tr>
+                        <td>{{ userMeta.user.id }}</td>
+                        <td>{{ userMeta.user.username }}</td>
+                        <td>{{ userMeta.user.first_name|title }}</td>
+                        <td>{{ userMeta.user.last_name|title }}</td>
+                        <td>{{ userMeta.user.email }}</td>
+                        <td>{{ userMeta.profiles.name|title }}</td>
+                        <td>{{ userMeta.user.date_joined|date:"d/m/y H:i" }}</td>
+                        <td>
+                        {% if userMeta.user.is_staff %}
+                            No disponible
+                        {% else %}
+                            {% with user_id=userMeta.user.id %}
+                            <a href="{% url 'website-ruta_update_user' user_id %}" class="button_table back_green white"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="{% url 'website-ruta_delete_user' user_id %}" class="button_table back_red white"><i class="fa-solid fa-trash"></i></a>
+                            {% endwith %}
+                        {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No se encontraron registros de usuarios</p>
+            {% endif %}
+        </div>
+        {% endblock  %}

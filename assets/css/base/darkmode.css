@@ -1,0 +1,9 @@
+/* Configuración del modo oscuro */
+.darkmode, .darkmode input, .darkmode textarea, .darkmode select {
+    color: var(--color-white);
+    background-color: var(--color-black);
+}
+
+.darkmode input::placeholder, .darkmode textarea::placeholder {
+    color: white;
+}

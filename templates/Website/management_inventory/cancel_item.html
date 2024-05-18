@@ -1,0 +1,20 @@
+{# Plantilla base #}{% extends '../layouts/base.html' %}
+{# Cargar assets #}{% load static %}
+{# Título de la página #} {% block title %}Dar de baja insumo{% endblock %}
+
+        {% block content %}
+        <div class="center-container">
+            <div class="center-container__title">
+                <h1>Dar de baja: ID {{item.inventory_id}}</h1>
+            </div>
+            <div class="center-container__body">
+                <p>¿Realmente desea dar de baja el insumo "<b>{{ item.name }}" ?</b>. Una vez dado de baja, el insumo no volverá a estar disponible</p>
+                <div class="button-box2">
+                    {# Botón - Rechazar #}
+                    <a href="{% url 'website-ruta_cancel_item_function' item.inventory_id template batch_name %}" class="button back_blue white" type="submit"><i class="fa-solid fa-check white"></i> Dar de baja</a>
+                    {# Botón - Cancelar #}
+                    <button id="back_btn" class="button back_red white" type="button"><i class="fa-solid fa-xmark white"></i> Cancelar</button>
+                </div>
+            </div>
+        </div>
+        {% endblock  %}

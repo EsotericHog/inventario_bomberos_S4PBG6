@@ -1,0 +1,130 @@
+{% extends '../layouts/base.html' %}
+{% load static %}
+{% block title %}Agregar insumo{% endblock %}
+
+        {% block content %}
+        <div class="center-container">
+            <div class="center-container__title">
+                <h1>Agregar insumo</h1>
+            </div>
+            <br>
+            <form id="InventoryForm" method="post" action="" enctype=multipart/form-data autocomplete="off">
+            <br>
+                {# SKU #}
+                <div class="input-box">
+                    {{form.skuField}}
+                </div>
+                {# Nombre #}
+                <div class="input-box">
+                    {{form.nameField}}
+                </div>
+                <datalist id="item_names">
+                {% for name in item_names %}
+                    <option value="{{name}}"/>
+                {% endfor %}
+                </datalist>
+
+                {# Descripción #}
+                <div class="input-box">
+                    {{form.descriptionField}}
+                </div>
+                {# Precio #}
+                <div class="input-box">
+                    {{form.priceField}}
+                </div>
+                {# Marca #}
+                <div class="input-box">
+                    {{form.brandField}}
+                </div>
+                <datalist id="item_brands">
+                    {% for brand in brands %}
+                    <option value="{{brand}}"/>
+                    {% endfor %}
+                </datalist>
+
+                {# Modelo #}
+                <div class="input-box">
+                    {{form.modelField}}
+                </div>
+                <datalist id="item_models">
+                    {% for model in models %}
+                    <option value="{{model}}"/>
+                    {% endfor %}
+                </datalist>
+
+                {# Categoría #}
+                <div class="input-box">
+                    <select name="Category" id="selectCategory"></select>
+                </div>
+
+                <br>
+                {# UBICACION #}
+                <span for="">Ubicación: Puedes seleccionar la gaveta o directamente un elemento contenedor (en caso de que corresponda): Como cajas, bolsos, mochilas, etc.</span>
+                {# Unidad #}
+                <div class="input-box">
+                    <select name="FireTruck" id="selectFireTruck"></select>
+                </div>
+                {# Gaveta #}
+                <div class="input-box">
+                    <select name="Compartment" id="selectCompartment"></select>
+                </div>
+                {# Contenedor #}
+                <div class="input-box">
+                    <select name="Container" id="selectContainer"></select>
+                </div>
+
+                <br>
+
+                {# Mantención programada #}
+                <div class="inputcheck-box">
+                    <input type="checkbox" name="checkboxMaintenance1" id="checkboxMaintenance1">
+                    <label for="checkboxMaintenance">Mantención Programada</label>
+                </div>
+                {# Programa de mantenimiento #}
+                <div class="input-box">
+                    <select name="MaintenancePrograms" id="selectMaintenancePrograms" hidden></select>
+                </div>
+
+                <br>
+
+                {# Mantención por horas de uso #}
+                <div class="inputcheck-box">
+                    <input type="checkbox" name="checkboxMaintenance2" id="checkboxMaintenance2">
+                    <label for="checkboxMaintenance">Mantención por horas de uso</label>
+                </div>
+                {# Horas de uso #}
+                <div class="input-box">
+                    {{form.maintenanceHourField}}
+                </div>
+
+                <br>
+
+                {# Expiración #}
+                <div class="inputcheck-box">
+                    <input type="checkbox" name="checkboxExpiration" id="checkboxExpiration">
+                    <label for="checkboxExpiration">Expiración</label>
+                </div>
+                {# Fecha de expiración #}
+                <div class="input-box">
+                    <label id="labelExpireDate" for="" hidden>Fecha de expiración</label>
+                    {{form.expireDateField}}
+                </div>
+                {# Notificación de expiración #}
+                <div class="input-box">
+                    <label id="labelExpireNotification" for="" hidden>Notificación anticipada</label>
+                    {{form.expireNotificationField}}
+                    <span id="indicatorExpireNotification" for="" style="width: 100px;" hidden></span>
+                </div>
+
+                <br>
+                {% csrf_token %}
+                {# Caja de Botones #}
+                <div class="button-box2">
+                    {# Botón - Crear #}
+                    <button id="truckDoneButton" class="button back_blue white" type="submit">Crear insumo</button>
+                    {# Botón - Volver #}
+                    <button id="back_btn" class="button back_red white" type="button"><i class="fa-sharp fa-solid fa-delete-left"></i> Volver</button>
+                </div>
+            </form>
+        </div>
+        {% endblock  %}

@@ -1,0 +1,15 @@
+h1 {
+    font-size: var(--fs-type-big);
+}
+
+h3 {
+    font-size: var(--fs-type-normal);
+}
+
+th, td, a, p, select, i, span, button, input, b, label, textarea {
+    font-size: var(--fs-type-small);
+}
+
+th, td, td b {
+    font-size: var(--fs-type-table);
+}

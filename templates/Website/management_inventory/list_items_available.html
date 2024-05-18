@@ -1,0 +1,118 @@
+{% extends '../layouts/base.html' %}
+{% load static %}
+{% load humanize %}
+{# Título de la página #} {% block title %}Insumos disponibles{% endblock %}
+
+        {% block content %}
+        <div class="center-container">
+                <div class="center-container__title">
+                    <h1>Lista de insumos disponibles ({{ total }})</h1>
+                </div>
+                <div class="center-container__header">
+                    <!--Barra de búsqueda-->
+                    <form class="input-search-form" action="" method="get">
+                        <input type="search" name="search" id="input-search">
+                        <button class="button back_black white" type="submit">Buscar</button>
+                    </form>
+                    <!--Botón agregar insumo-->
+                    <a class="button back_blue white" href="{% url 'website-ruta_add_item' %}">Agregar</a>
+                    <a class="button back_blue white" href="">Agregar lote</a>
+                </div>
+                {% if items %}
+                <table id="itemsTable" class="responsive-table1 display">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                            <th>Unidad</th>
+                            <th>Gaveta</th>
+                            <th>Expiración</th>
+                            <th>Mantención</th>
+                            <th class="action-field">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+
+                        {% if item.sku %}
+                            <td>{{ item.sku }}</td>
+                        {% else %}
+                            <td>Sin código</td>
+                        {% endif %}
+                        
+                            <td title="{{ item.inventorymetadata.name }}">
+                                <b>{{ item.inventorymetadata.name|slice:":32" }}
+                                    {% if item.inventorymetadata.name|length > 32 %}...{% endif %}
+                                </b>
+                            </td>
+                            <td title="{{ item.categories.description }}">{{ item.categories.name|title }}</td>
+                            <td>{{ item.inventorymetadata.brand|title }}</td>
+                            <td>{{ item.inventorymetadata.model|title }}</td>
+
+                        {% if item.inventorymetadata.price %}
+                            <td>${{ item.inventorymetadata.price|intcomma }}</td>
+                        {% else %}
+                            <td>Sin precio</td>
+                        {% endif %}
+
+                            <td class="{{item.status.name}}"><b>{{item.status.name|title}}</b></td>
+                            <td>{{item.compartments.fire_trucks.name|title}}</td>
+                            <td>{{item.compartments.name|title}}</td>
+                            
+                        {% if item.expire_at %}
+                        {% if "0" not in item.expire_at|timeuntil %}
+                            <td>{{item.expire_at|date:"d/m/y"}} (Queda {{ item.expire_at|timeuntil }})</td>
+                        {% else %}
+                            <td class="red"><b>Expirado</b></td>
+                        {% endif %}
+                        {% else %}
+                            <td>NO</td>
+                        {% endif %}
+
+                        {% if item.maintenance_hour or item.maintenance_programs_id %}
+                        {% if item.maintenance_hour %}
+                            <td>Cada {{item.maintenance_hour}} horas de uso</td>
+                        {% elif item.maintenance_programs_id %}
+                            <td>Programa {{item.maintenance_programs.name|title}}</td>
+                        {% endif %}
+                        {% else %}
+                            <td>NO</td>
+                        {% endif %}
+                            <td class="action-field">
+                                <a href="{% url 'website-ruta_update_item' item.id %}" title="Modificar" class="button_table back_green white"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="{% url 'website-ruta_cancel_item' item.id %}" title="Dar de baja" class="button_table back_red white"><i class="fa-solid fa-down-long"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>ID</td>
+                            <td>Código</td>
+                            <td>Nombre</td>
+                            <td>Categoría</td>
+                            <td>Marca</td>
+                            <td>Modelo</td>
+                            <td>Precio</td>
+                            <td>Estado</td>
+                            <td>Unidad</td>
+                            <td>Gaveta</td>
+                            <td>Expiración</td>
+                            <td>Mantención</td>
+                            <td class="action-field">Acciones</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                {% else %}
+                <p>No se encontraron insumos</p>
+                {% endif %}
+        </div>
+        {% endblock  %}
