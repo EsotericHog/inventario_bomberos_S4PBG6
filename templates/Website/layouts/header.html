@@ -21,7 +21,7 @@
                 </div>
             </div>
             {# Información del sistema #}
-            <i class="fa-solid fa-circle-info" style="color: #0059b3;"></i>
+            <a class="white" href="{% url 'website-ruta_about' %}"><i class="fa-solid fa-circle-info" style="color: #0059b3;"></i> Información</a>
             {# Nombre del usuario #}
             <span class="header__username">
             {% if request.user.first_name and request.user.last_name %}

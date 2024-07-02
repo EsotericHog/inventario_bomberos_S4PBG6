@@ -1,0 +1,28 @@
+{# Plantilla base #}{% extends '../Website/layouts/base.html' %}
+{# Cargar assets #}{% load static %}
+{# Título de la página #} {% block title %}Información{% endblock %}
+
+{% block content %}
+<div class="center-container">
+    <div class="center-container__title">
+      <h1>Participantes del proyecto</h1>
+    </div>
+    <div class="center-container__body">
+        <div class="center-container__persons">
+            <h3>Autor</h3>
+            <span> <i class="fa-solid fa-droplet"></i> Juan Ignacio Castillo Lizama <b>(Estudiante)</b></span>
+        </div>
+        <div class="center-container__persons">
+            <h3>Docentes</h3>
+            <span> <i class="fa-solid fa-droplet"></i> Fernando Andres Reveco Zepeda <b>(Docente Líder del Proyecto)</b></span>
+            <span> <i class="fa-solid fa-droplet"></i> Patricio Esteban Soto Castillo <b>(Análisis de Ciberseguridad)</b></span>
+            <span> <i class="fa-solid fa-droplet"></i> Ademar Araya Fuentes <b>(Modelamiento de Base de Datos)</b></span>
+        </div>
+        <div class="center-container__persons">
+            <h3>Encargados de vinculación</h3>
+            <span> <i class="fa-solid fa-droplet"></i> Eduardo Fernández Echeverría <b>(Encargado de Comunicaciones)</b></span>
+            <span> <i class="fa-solid fa-droplet"></i> Tomas Hurtado Cancino <b>(Coordinador Fablab)</b></span>
+        </div>
+    </div>
+  </div>
+{% endblock %}
