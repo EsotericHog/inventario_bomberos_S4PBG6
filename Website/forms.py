@@ -32,7 +32,7 @@ class SignupForm(forms.Form):
     emailField = forms.EmailField(required=True, widget=forms.TextInput(attrs={'id':'input-email', 'placeholder':'Correo electrónico'}))
     passwordField = forms.CharField(required=True, widget=forms.PasswordInput(attrs={'id':'input-password', 'placeholder':'Contraseña'}))
     confirmPasswordField = forms.CharField(required=True, widget=forms.PasswordInput(attrs={'id':'input-confirm_password', 'placeholder':'Confirmar contraseña'}))
-    numberField = forms.CharField(required=True, widget=forms.TextInput(attrs={'id':'input-number', 'placeholder':'Teléfono (Opcional)'}))
+    numberField = forms.CharField(required=False, widget=forms.TextInput(attrs={'id':'input-number', 'placeholder':'Teléfono (Opcional)'}))
 
 
 #Actualizar usuario
@@ -41,7 +41,7 @@ class UpdateUserForm(forms.Form):
     nameField = forms.CharField(required=True, widget=forms.TextInput(attrs={'id':'input-name', 'placeholder':'Nombre'}))
     lastNameField = forms.CharField(required=True, widget=forms.TextInput(attrs={'id':'input-lastname', 'placeholder':'Apellido'}))
     emailField = forms.EmailField(required=True, widget=forms.TextInput(attrs={'id':'input-email', 'placeholder':'Correo electrónico'}))
-    numberField = forms.CharField(required=True, widget=forms.TextInput(attrs={'id':'input-number', 'placeholder':'Teléfono (Opcional)'}))
+    numberField = forms.CharField(required=False, widget=forms.TextInput(attrs={'id':'input-number', 'placeholder':'Teléfono (Opcional)'}))
 
 
 #Crear vehículo
