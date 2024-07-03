@@ -482,7 +482,7 @@ INSERT INTO `categories` VALUES
 
 /* SUPER USUARIO */
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(NULL, 'pbkdf2_sha256$600000$F2wms8DBOwhAEhTGj495uP$BP6KwjwlJfWEP5d5CCNa+3jaWpdl2tOeEe0VMVIJ0TE=', NULL, 1, '19.980.425-1', 'JUAN', 'CASTILLO', 'admin@admin.cl', 1, 1, '2023-10-25 15:53:29.566625');
+(1, 'pbkdf2_sha256$720000$ir6rKLroKp3LGtrsRB4pwC$yu89KtMHMUfLgHs159PCgpcaRxEWcCgSaEH6yLa3kq4=', '2024-07-02 07:27:16.000000', 1, '19.980.425-1', 'JUAN', 'CASTILLO', 'juan.castillo89@inacapmail.cl', 1, 1, '2023-10-25 15:53:29.000000');
 INSERT INTO `user_metadata` (`id`, `number`, `fire_stations_id`, `profiles_id`, `user_id`) VALUES
 (1, '68216686', 2, 3, 1);
 
