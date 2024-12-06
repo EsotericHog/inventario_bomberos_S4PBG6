@@ -25,7 +25,7 @@ TOTAL_PAGES = conf["pagination"]
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k*0#&n+%3yevoi%f00)#-t1^pt6y!en!q^u01baidcp#81c5!9'
+SECRET_KEY = conf["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = conf["debug"]
@@ -104,6 +104,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length':12,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',

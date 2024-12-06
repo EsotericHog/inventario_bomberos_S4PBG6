@@ -125,12 +125,14 @@ function validatePassword(inputElement, icon) {
     let dynamicValue = inputElement.value;
 
     //Mínimo 8 caracteres
-    let lengthValue = dynamicValue.length >= 8 ? true : false;
-    // Debe contener al menos una letra y al menos un número
+    let lengthValue = dynamicValue.length >= 12 ? true : false;
+    // Debe contener al menos una letra, al menos un número, al menos un caracter especial y al menos una letra mayúscula
     let letterValue = /[a-zA-Z]/.test(dynamicValue);
     let numberValue = /[0-9]/.test(dynamicValue);
+    let specialCharValue = /[!@#$%^&*(),.?":{}|<>]/.test(dynamicValue);
+    let uppercaseValue = /[A-Z]/.test(dynamicValue);
 
-    if(lengthValue && letterValue && numberValue) {
+    if(lengthValue && letterValue && numberValue && specialCharValue && uppercaseValue) {
         icon.classList.replace("checkIconHidden", "checkIcon");
     }
     else {
@@ -502,6 +504,7 @@ if (inputSku) {
 
 //MANTENCIÓN
 const checkboxMaintenance1 = document.getElementById("checkboxMaintenance1");
+console.log("check de mantención programada identificado")
 const selectMaintenancePrograms = document.getElementById("selectMaintenancePrograms");
 
 const checkboxMaintenance2 = document.getElementById("checkboxMaintenance2");
@@ -509,13 +512,15 @@ const inputMaintenanceHour = document.getElementById("inputMaintenanceHour");
 const labelMaintenanceHour = document.getElementById("labelMaintenanceHour");
 
 checkboxMaintenance1.addEventListener("change", (event) => {
+    console.log("cambio detectado en el check de mantencion programada")
     if (event.target.checked) {
         checkboxMaintenance2.checked = false;
-        hideElement(inputMaintenanceHour);
-        hideElement(labelMaintenanceHour);
+        displayElement(selectMaintenancePrograms);
         inputMaintenanceHour.value = "";
 
-        displayElement(selectMaintenancePrograms);
+        hideElement(inputMaintenanceHour);
+        hideElement(labelMaintenanceHour);
+
     }
     else {
         hideElement(selectMaintenancePrograms);
@@ -525,8 +530,8 @@ checkboxMaintenance1.addEventListener("change", (event) => {
 checkboxMaintenance2.addEventListener("change", (event) => {
     if (event.target.checked) {
         checkboxMaintenance1.checked = false;
-        hideElement(selectMaintenancePrograms);
         selectMaintenancePrograms.value = 0;
+        hideElement(selectMaintenancePrograms);
 
         displayElement(inputMaintenanceHour);
         displayElement(labelMaintenanceHour);

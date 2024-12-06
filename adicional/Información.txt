@@ -44,3 +44,8 @@ _No hay ninguna diferencia entre los roles de usuario. Acceso total por falta de
 _Implementé el cambio de tema oscuro con el switch, aunque tiene defectos que no pude resolver por tiempo.
 
 _Si comienza a probar validaciones de formulario, probablemente encuentre errores en los CRUD de los primeros módulos que realicé, aunque si completa correctamente los campos obligatorios, no habrá problemas.
+
+
+
+_RUT DIGITO VERIFICADOR SOLO SEA CUANDO EL ADMINISTRADOR CREE LA CUENTA
+_INICIAR SESION CON ID (IDEA)

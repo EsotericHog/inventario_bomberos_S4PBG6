@@ -1,4 +1,5 @@
 {
+    "SECRET_KEY":"django-insecure-k*0#&n+%3yevoi%f00)#-t1^pt6y!en!q^u01baidcp#81c5!9",
     "debug":true,
     "base_url":"http://127.0.0.1:8000/",
     "user":"root",

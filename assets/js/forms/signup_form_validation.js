@@ -73,12 +73,14 @@ function formValidateEmail(inputElement) {
 function formValidatePassword(inputElement) {
     let dynamicValue = inputElement.value;
     //Mínimo 8 caracteres
-    let lengthValue = dynamicValue.length >= 8 ? true : false;
-    // Debe contener al menos una letra y al menos un número
+    let lengthValue = dynamicValue.length >= 12 ? true : false;
+    // Debe contener al menos una letra, al menos un número, al menos un caracter especial y al menos una letra mayúscula
     let letterValue = /[a-zA-Z]/.test(dynamicValue);
     let numberValue = /[0-9]/.test(dynamicValue);
+    let specialCharValue = /[!@#$%^&*(),.?":{}|<>]/.test(dynamicValue);
+    let uppercaseValue = /[A-Z]/.test(dynamicValue);
 
-    if(lengthValue && letterValue && numberValue) {
+    if(lengthValue && letterValue && numberValue && specialCharValue && uppercaseValue) {
         return true
     }
     else {

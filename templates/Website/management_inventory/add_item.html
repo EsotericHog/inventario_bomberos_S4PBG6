@@ -70,7 +70,7 @@
                 </div>
                 {# Contenedor #}
                 <div class="input-box">
-                    <select name="Container" id="selectContainer"></select>
+                    <select name="Container" id="selectContainer" title="Selecciona un contenedor en caso de que el insumo se encuentre dentro de otro. Ej: Bolso, caja, mochila, etc."></select>
                 </div>
 
                 <br>
@@ -94,7 +94,8 @@
                 </div>
                 {# Horas de uso #}
                 <div class="input-box">
-                    {{form.maintenanceHourField}}
+                    <!--{{form.maintenanceHourField}}-->
+                    <input id="inputMaintenanceHour" type="number" placeholder="Cada cuántas horas de uso se debe hacer mantenimiento" hidden>
                 </div>
 
                 <br>

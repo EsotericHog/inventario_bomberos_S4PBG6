@@ -71,4 +71,4 @@ class InventoryForm2(forms.Form):
     modelField = forms.CharField(required=False, widget=forms.TextInput(attrs={'id':'inputModel', 'placeholder':'Modelo (opcional)', 'list':'item_models'}))
     expireDateField = forms.CharField(required=False, widget=forms.TextInput(attrs={'id':'inputExpireDate', 'type':'date', 'hidden':'true'}))
     expireNotificationField = forms.CharField(required=False, widget=forms.TextInput(attrs={'id':'inputExpireNotification', 'type':'number', 'min':'0', 'max':'360', 'hidden':'true'}))
-    maintenanceHourField = forms.CharField(required=False, widget=forms.TextInput(attrs={'id':'inputMaintenanceHour', 'type':'number', 'placeholder':'Cada cuántas horas de uso se debe hacer mantenimiento', 'hidden':'true'}))
+    #maintenanceHourField = forms.CharField(required=False, widget=forms.TextInput(attrs={'id':'inputMaintenanceHour', 'type':'number', 'placeholder':'Cada cuántas horas de uso se debe hacer mantenimiento', 'hidden':'true'}))
