@@ -1,4 +1,41 @@
 //GESTION DEL RUT
+//NUEVA FUNCION PARA DEVOLDER EL DIGITO VERIFICADOR
+/*function calculateValidateRut(rutElement, digitRutElement) {
+    console.log(rutElement.value)
+    console.log(typeof(rutElement.value))
+    let cleanRut = rutElement.value;
+    
+    let array = cleanRut.split('').reverse();
+    let acumulator = 0;
+    let multiplicator = 2;
+
+
+    for(let number of array) {
+        acumulator += parseInt(number) * multiplicator;
+        multiplicator++;
+        //Necesitamos resetear el multiplicador a 2 , ya que la fórmula indica que el incremento es hasta el 7
+        if(multiplicator == 8) {
+            multiplicator = 2;
+        }
+    }
+    
+    //Aquí obtenemos el resto al dividir la suma total por 11
+    let digit = 11 - (acumulator % 11);
+
+    //Si el dígito verificador es 11, se convierte a 0
+    if(digit == 11) {
+        digit = '0';
+    }
+
+    //Si el dígito verificador es 10, se convierte a k
+    else if(digit == 10) {
+        digit = 'K';
+    }
+    digitRutElement.value = digit;
+
+};
+*/
+
 //FUNCIÓN DE EVENTO PARA FORMATEAR RUT EN ENTRADA DE TEXTO INPUT
 function formatRut(inputElement) {
     let dynamicValue = inputElement.value;
@@ -9,14 +46,18 @@ function formatRut(inputElement) {
     // Limitar la cadena a un máximo de 9 caracteres
     if (dynamicValue.length > 9) {
         dynamicValue = dynamicValue.slice(0, 9);
-
     }
+    ////Limitar la cadena a un máximo de 9 caracteres
+    //if (dynamicValue.length > 8) {
+    //    dynamicValue = dynamicValue.slice(0, 8);
+    //}
 
     //Aplicar formato de puntos y guión
     if (dynamicValue.length > 1) {
         let last = dynamicValue.slice(-1);
         dynamicValue = dynamicValue.slice(0, -1);
         dynamicValue = dynamicValue.replace(/\B(?=(\d{3})+\b)/g, '.') + "-" + last;
+        //dynamicValue = dynamicValue.replace(/\B(?=(\d{3})+\b)/g, '.');
     }
 
     // Asignar valor formateado
@@ -318,6 +359,7 @@ window.addEventListener("load", async () => {
 //RUT
 const inputRut = document.getElementById("input-rut");
 const checkRut = document.getElementById("check-rut");
+//const inputDigitRut = document.getElementById("digito-verificador");
 if(inputRut) {
     //Evento formato
     inputRut.addEventListener('input', ()=> {
@@ -328,6 +370,7 @@ if(checkRut) {
     //Evento validación
     inputRut.addEventListener('blur', ()=> {
         validateRut(inputRut, checkRut);
+        //calculateValidateRut(inputRut, inputDigitRut);
     });
 }
 

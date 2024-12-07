@@ -18,6 +18,7 @@
                     <div class="input-box">
                         <i class="fa-solid fa-id-card"></i>
                         {{form.rutField}}
+                        <!--<input id="digito-verificador" type="text" style="width: 30px;">-->
                         <i id="check-rut" class="fa-solid fa-circle-check checkIconHidden"></i>
                     </div>
                     {# Nombre #}
@@ -39,6 +40,12 @@
                         <i id="check-email" class="fa-solid fa-circle-check checkIconHidden"></i>
                     </div>
                     {# Contraseña #}
+                    <label style="
+                    color: gray;
+                    font-size: small;
+                    margin-top: 10px;
+                    padding-left: 20px;
+                    " for="">La contraseña debe tener mínimo 12 caracteres, al menor 1 mayúscula, 1 número y 1 caracter especial</label>
                     <div class="input-box">
                         <i class="fa-solid fa-lock"></i>
                         {{form.passwordField}}

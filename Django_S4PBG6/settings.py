@@ -141,3 +141,9 @@ MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#EMAIL
+# API KEY de RESET para envío de emails (YA NO SE VA A USAR)
+RESET_API_KEY = conf["RESET_API_KEY"]
+GOOGLE_APP_PASSWORD = conf["GOOGLE_APP_PASSWORD"]
+EMAIL_SENDER = conf["EMAIL_SENDER"]

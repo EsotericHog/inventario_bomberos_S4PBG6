@@ -11,6 +11,7 @@ import time
 from django.conf import Settings
 from ..forms import *
 from ..models import Profile, UserMetadata
+from ..mail import send_complete_signup_mail
 
 #VISTAS DE ACCESO
 #Vista - Iniciar sesión
@@ -81,6 +82,10 @@ def signupView(request):
                 #Crear registro en la tabla de metadata
                 UserMetadata.objects.create(number=request.POST['numberField'], fire_stations_id=request.POST['station'], profiles_id=request.POST['profile'], user_id=u.id)
                 messages.add_message(request, messages.SUCCESS, f"Cuenta creada a la espera de aprobación.")
+
+                #Enviar correo
+                send_complete_signup_mail(to=request.POST['emailField'], name=request.POST['nameField'], subject="Cuenta creada en Inventario pendiente de aprobación")
+
                 return HttpResponseRedirect(reverse('website-ruta_signup_success'))
         
         else:
