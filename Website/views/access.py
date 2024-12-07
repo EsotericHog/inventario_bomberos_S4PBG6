@@ -84,7 +84,7 @@ def signupView(request):
                 messages.add_message(request, messages.SUCCESS, f"Cuenta creada a la espera de aprobación.")
 
                 #Enviar correo
-                send_complete_signup_mail(to=request.POST['emailField'], name=request.POST['nameField'], subject="Cuenta creada en Inventario pendiente de aprobación")
+                send_complete_signup_mail(to=request.POST['emailField'], name=request.POST['nameField'])
 
                 return HttpResponseRedirect(reverse('website-ruta_signup_success'))
         

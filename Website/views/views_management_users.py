@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
 from ..forms import *
 from ..utilities.decorators import *
+from ..mail import send_active_account_mail
 
 
 #Vista - Lista de usuarios registrados
@@ -167,6 +168,7 @@ def activeUser(request, user_id):
         user = User.objects.filter(id=user_id).get()
         user.is_active=True
         user.save()
+        send_active_account_mail(to=user.email, name=user.first_name)
         messages.add_message(request, messages.SUCCESS, f'El usuario {user.first_name.title()} {user.last_name.title()} ha sido aprobado con éxito')
         return HttpResponseRedirect(reverse('website-ruta_approve_users'))
     except Exception:

@@ -4,7 +4,9 @@ import ssl
 import smtplib
 
 
-def send_complete_signup_mail(to, name : str, subject):
+def send_complete_signup_mail(to, name : str):
+    subject="Inventario: Cuenta creada pendiente de aprobación"
+
     body = f"""
     <body style="
     margin: 0;
@@ -54,6 +56,28 @@ def send_complete_signup_mail(to, name : str, subject):
     simple_body = f"""
     ¡Saludos, {name.capitalize()}!
     Has creado tu cuenta con éxito en el sistema. Sin embargo, aún no puedes acceder a él, ya que tu solicitud debe ser aprobada por el administrador. Cuando tu cuenta esté aprobada, recibirás otro correo electrónico de confirmación para que puedas iniciar sesión."""
+
+    em = EmailMessage()
+    em["From"] = EMAIL_SENDER
+    em["To"] = to
+    em["Subject"] = subject
+    #em.add_alternative(body, subtype='html')
+    em.set_content(simple_body)
+
+    context = ssl.create_default_context()
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as smtp:
+        smtp.login(EMAIL_SENDER, GOOGLE_APP_PASSWORD)
+        smtp.sendmail(EMAIL_SENDER, to, em.as_string())
+
+
+# Mensaje para informar de solicitud aprobada
+def send_active_account_mail(to, name : str):
+    subject = "Inventario: Cuenta aprobada con éxito"
+
+    simple_body = f"""
+    Bienvenido/a, {name.capitalize()}!
+    Tu solicitud de creación de cuenta ha sido aprobada con éxito. Ya puedes ingresar al sistema."""
 
     em = EmailMessage()
     em["From"] = EMAIL_SENDER
