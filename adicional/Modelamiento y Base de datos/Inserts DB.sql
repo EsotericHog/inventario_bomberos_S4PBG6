@@ -444,7 +444,7 @@ INSERT INTO `fire_trucks` VALUES
 
 /* GAVETAS */
 INSERT INTO `compartments` VALUES
-	(NULL, 'CAVINA', NULL, 40, 1),
+	(NULL, 'CABINA', NULL, 40, 1),
 	(NULL, 'GAVETA 1', NULL, 80, 1),
 	(NULL, 'GAVETA 2', NULL, 80, 1),
 	(NULL, 'GAVETA 3', NULL, 80, 1),
@@ -453,7 +453,7 @@ INSERT INTO `compartments` VALUES
 	(NULL, 'GAVETA 6', NULL, 80, 1),
 	(NULL, 'TECHO', NULL, 40, 1),
 
-	(NULL, 'CAVINA', NULL, 40, 2),
+	(NULL, 'CABINA', NULL, 40, 2),
 	(NULL, 'GAVETA 1', NULL, 80, 2),
 	(NULL, 'GAVETA 2', NULL, 80, 2),
 	(NULL, 'GAVETA 3', NULL, 80, 2),

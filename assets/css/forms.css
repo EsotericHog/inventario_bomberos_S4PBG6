@@ -161,6 +161,18 @@
     display: none !important;
 }
 
+/* Icono de invalidación */
+.badIcon {
+    position: absolute;
+    display:inline;
+    right: 0;
+    color: #f43535;
+}
+.badIconHidden {
+    display: none !important;
+}
+
+
 /* Labels de formularios */
 .labelForm {
     width: 150px;

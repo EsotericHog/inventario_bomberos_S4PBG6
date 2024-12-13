@@ -20,7 +20,7 @@ class InventoryForm(forms.ModelForm):
 
 #Iniciar sesión
 class LoginForm(forms.Form):
-    rutField = forms.CharField(required=True, widget=forms.TextInput(attrs={'id':'input-rut', 'placeholder':'RUT', 'autocomplete':'off'}))
+    rutField = forms.CharField(required=True, widget=forms.TextInput(attrs={'id':'input-rut-login', 'placeholder':'RUT', 'autocomplete':'off'}))
     passwordField = forms.CharField(required=True, widget=forms.PasswordInput(attrs={'id':'input-password', 'placeholder':'Contraseña'}))
 
 
@@ -37,7 +37,7 @@ class SignupForm(forms.Form):
 
 #Actualizar usuario
 class UpdateUserForm(forms.Form):
-    rutField = forms.CharField(required=True, widget=forms.TextInput(attrs={'id':'input-rut', 'placeholder':'RUT'}))
+    rutField = forms.CharField(required=True, widget=forms.TextInput(attrs={'id':'input-rut', 'placeholder':'RUT', 'readonly':'true'}))
     nameField = forms.CharField(required=True, widget=forms.TextInput(attrs={'id':'input-name', 'placeholder':'Nombre'}))
     lastNameField = forms.CharField(required=True, widget=forms.TextInput(attrs={'id':'input-lastname', 'placeholder':'Apellido'}))
     emailField = forms.EmailField(required=True, widget=forms.TextInput(attrs={'id':'input-email', 'placeholder':'Correo electrónico'}))

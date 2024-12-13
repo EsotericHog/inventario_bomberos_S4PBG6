@@ -104,7 +104,7 @@ def updateUserView(request, user_id):
 
             else:
                 #Modificar registro en la tabla auth_user
-                user.username = request.POST.get('rutField')
+                #user.username = request.POST.get('rutField')
                 user.first_name = request.POST.get('nameField')
                 user.last_name = request.POST.get('lastNameField')
                 user.email = request.POST.get('emailField')

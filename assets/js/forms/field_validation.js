@@ -1,75 +1,118 @@
 //GESTION DEL RUT
-//NUEVA FUNCION PARA DEVOLDER EL DIGITO VERIFICADOR
-/*function calculateValidateRut(rutElement, digitRutElement) {
-    console.log(rutElement.value)
-    console.log(typeof(rutElement.value))
-    let cleanRut = rutElement.value;
-    
-    let array = cleanRut.split('').reverse();
-    let acumulator = 0;
-    let multiplicator = 2;
-
-
-    for(let number of array) {
-        acumulator += parseInt(number) * multiplicator;
-        multiplicator++;
-        //Necesitamos resetear el multiplicador a 2 , ya que la fórmula indica que el incremento es hasta el 7
-        if(multiplicator == 8) {
-            multiplicator = 2;
-        }
-    }
-    
-    //Aquí obtenemos el resto al dividir la suma total por 11
-    let digit = 11 - (acumulator % 11);
-
-    //Si el dígito verificador es 11, se convierte a 0
-    if(digit == 11) {
-        digit = '0';
-    }
-
-    //Si el dígito verificador es 10, se convierte a k
-    else if(digit == 10) {
-        digit = 'K';
-    }
-    digitRutElement.value = digit;
-
-};
-*/
-
 //FUNCIÓN DE EVENTO PARA FORMATEAR RUT EN ENTRADA DE TEXTO INPUT
-function formatRut(inputElement) {
+function formatRut(inputElement, type) {
     let dynamicValue = inputElement.value;
 
-    //Elimina cualquier caracter que no sea un número o la letra 'k' o 'K'
-    dynamicValue = dynamicValue.replace(/[^0-9kK]/g, '').toUpperCase();
+    //Formulario Iniciar sesión
+    if (type === "login") {
+        //Elimina cualquier caracter que no sea un número o la letra 'k' o 'K'
+        dynamicValue = dynamicValue.replace(/[^0-9kK]/g, '').toUpperCase();
+        
+        // Limitar la cadena a un máximo de 9 caracteres
+        if (dynamicValue.length > 9) {
+            dynamicValue = dynamicValue.slice(0, 9);
+        }
 
-    // Limitar la cadena a un máximo de 9 caracteres
-    if (dynamicValue.length > 9) {
-        dynamicValue = dynamicValue.slice(0, 9);
+        //Aplicar formato de puntos y guión
+        if (dynamicValue.length > 1) {
+            let last = dynamicValue.slice(-1);
+            dynamicValue = dynamicValue.slice(0, -1);
+            dynamicValue = dynamicValue.replace(/\B(?=(\d{3})+\b)/g, '.') + "-" + last;
+        }
     }
-    ////Limitar la cadena a un máximo de 9 caracteres
-    //if (dynamicValue.length > 8) {
-    //    dynamicValue = dynamicValue.slice(0, 8);
-    //}
 
-    //Aplicar formato de puntos y guión
-    if (dynamicValue.length > 1) {
-        let last = dynamicValue.slice(-1);
-        dynamicValue = dynamicValue.slice(0, -1);
-        dynamicValue = dynamicValue.replace(/\B(?=(\d{3})+\b)/g, '.') + "-" + last;
-        //dynamicValue = dynamicValue.replace(/\B(?=(\d{3})+\b)/g, '.');
+    // Formulario Crear cuenta
+    if (type === "signup") {
+        // Permitir sólo números
+        dynamicValue = dynamicValue.replace(/[^0-9]/g, '');
+
+        //Limitar la cadena a un máximo de 8 caracteres
+        if (dynamicValue.length > 8) {
+            dynamicValue = dynamicValue.slice(0, 8);
+        }
+
+        //Aplicar formato de puntos y guión
+        if (dynamicValue.length > 1) {
+            dynamicValue = dynamicValue.replace(/\B(?=(\d{3})+\b)/g, '.');
+        }
     }
 
     // Asignar valor formateado
     inputElement.value = dynamicValue;
 }
 
-//MÉTODO DE EVENTO PARA VALIDAR DIGITO VERIFICADOR DE RUT
-function validateRut(inputElement, icon) {
+////MÉTODO DE EVENTO PARA VALIDAR DIGITO VERIFICADOR DE RUT
+//function validateRut(inputElement, goodIcon, badIcon = document.createElement("i")) {
+//    let rut = inputElement.value;
+//    let checkDigit = rut.slice(-1);
+//    let cleanRut = rut.slice(0, -1).replace(/\D/g, '');
+//    
+//    let array = cleanRut.split('').reverse();
+//    let acumulator = 0;
+//    let multiplicator = 2;
+//
+//
+//    for(let number of array) {
+//        acumulator += parseInt(number) * multiplicator;
+//        multiplicator++;
+//        //Necesitamos resetear el multiplicador a 2 , ya que la fórmula indica que el incremento es hasta el 7
+//        if(multiplicator == 8) {
+//            multiplicator = 2;
+//        }
+//    }
+//    
+//    //Aquí obtenemos el resto al dividir la suma total por 11
+//    let digit = 11 - (acumulator % 11);
+//
+//    //Si el dígito verificador es 11, se convierte a 0
+//    if(digit == 11) {
+//        digit = '0';
+//    }
+//
+//    //Si el dígito verificador es 10, se convierte a k
+//    else if(digit == 10) {
+//        digit = 'K';
+//    }
+//
+//
+//    if (digit == checkDigit && cleanRut.length >=8) {
+//        goodIcon.classList.replace("checkIconHidden", "checkIcon");
+//        badIcon.classList.replace("badIcon", "badIconHidden")
+//    }
+//    else {
+//        goodIcon.classList.replace("checkIcon", "checkIconHidden");
+//        badIcon.classList.replace("badIconHidden", "badIcon");
+//    }
+//};
+
+
+
+
+//NUEVO MÉTODO DE EVENTO PARA VALIDAR DIGITO VERIFICADOR DE RUT
+function validateRut(inputElement, goodIcon, badIcon = document.createElement("i")) {
     let rut = inputElement.value;
-    let checkDigit = rut.slice(-1);
-    let cleanRut = rut.slice(0, -1).replace(/\D/g, '');
+    let cleanRut = rut.replace(/\D/g, '');
+
+    digit = calculateDigitVerificator(cleanRut);
+    digitoVerificador = document.getElementById("digitoVerificador");
+    digitoVerificador.value = digit;
     
+    if (inputElement.value === "") {
+        digitoVerificador.value = "";
+
+    }
+
+    if (cleanRut.length >=8 && digit != null) {
+        goodIcon.classList.replace("checkIconHidden", "checkIcon");
+        badIcon.classList.replace("badIcon", "badIconHidden")
+    }
+    else {
+        goodIcon.classList.replace("checkIcon", "checkIconHidden");
+        badIcon.classList.replace("badIconHidden", "badIcon");
+    }
+};
+//NUEVO RUT DIGITO VERIFICADOR
+function calculateDigitVerificator(cleanRut) {
     let array = cleanRut.split('').reverse();
     let acumulator = 0;
     let multiplicator = 2;
@@ -97,13 +140,9 @@ function validateRut(inputElement, icon) {
         digit = 'K';
     }
 
-    if (digit == checkDigit && cleanRut.length >=8) {
-        icon.classList.replace("checkIconHidden", "checkIcon");
-    }
-    else {
-        icon.classList.replace("checkIcon", "checkIconHidden");
-    }
+    return digit
 };
+
 
 
 
@@ -123,14 +162,16 @@ function formatAlpha(inputElement) {
     //Actualizar valor de elemento
     inputElement.value = dynamicValue;
 }
-function validateAlpha(inputElement, icon) {
+function validateAlpha(inputElement, goodIcon, badIcon = document.createElement("i")) {
     let dynamicValue = inputElement.value;
 
-    if (dynamicValue.length >= 3) {
-        icon.classList.replace("checkIconHidden", "checkIcon");
+    if (dynamicValue.length >= 2) {
+        goodIcon.classList.replace("checkIconHidden", "checkIcon");
+        badIcon.classList.replace("badIcon", "badIconHidden");
     }
     else {
-        icon.classList.replace("checkIcon", "checkIconHidden");
+        goodIcon.classList.replace("checkIcon", "checkIconHidden");
+        badIcon.classList.replace("badIconHidden", "badIcon");
     }
 }
 
@@ -146,15 +187,17 @@ function formatEmail(inputElement) {
     inputElement.value = dynamicValue;
 }
 //VALIDACION CORREO ELECTRÓNICO
-function validateEmail(inputElement, icon) {
+function validateEmail(inputElement, goodIcon, badIcon = document.createElement("i")) {
     let dynamicValue = inputElement.value;
     let emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     if(emailFormat.test(dynamicValue)) {
-        icon.classList.replace("checkIconHidden", "checkIcon");
+        goodIcon.classList.replace("checkIconHidden", "checkIcon");
+        badIcon.classList.replace("badIcon", "badIconHidden");
     }
     else {
-        icon.classList.replace("checkIcon", "checkIconHidden");
+        goodIcon.classList.replace("checkIcon", "checkIconHidden");
+        badIcon.classList.replace("badIconHidden", "badIcon");
     }
 }
 
@@ -162,7 +205,7 @@ function validateEmail(inputElement, icon) {
 
 //GESTION DE CONTRASEÑA
 //Validar contraseña
-function validatePassword(inputElement, icon) {
+function validatePassword(inputElement, goodIcon, badIcon = document.createElement("i")) {
     let dynamicValue = inputElement.value;
 
     //Mínimo 8 caracteres
@@ -174,10 +217,12 @@ function validatePassword(inputElement, icon) {
     let uppercaseValue = /[A-Z]/.test(dynamicValue);
 
     if(lengthValue && letterValue && numberValue && specialCharValue && uppercaseValue) {
-        icon.classList.replace("checkIconHidden", "checkIcon");
+        goodIcon.classList.replace("checkIconHidden", "checkIcon");
+        badIcon.classList.replace("badIcon", "badIconHidden");
     }
     else {
-        icon.classList.replace("checkIcon", "checkIconHidden");
+        goodIcon.classList.replace("checkIcon", "checkIconHidden");
+        badIcon.classList.replace("badIconHidden", "badIcon");
     }
 }
 //Función para ocultar / mostrar contraseña dinámicamente
@@ -198,15 +243,17 @@ function showHide(inputElement, eyeicon) {
 
 //GESTION CONFIRMAR CONTRASEÑA
 //Validación de coincidencia
-function validateConfirmPassword(password1, password2, icon) {
+function validateConfirmPassword(password1, password2, goodIcon, badIcon = document.createElement("i")) {
     let password = password1;
     let confirm_password = password2.value;
 
     if(password == confirm_password) {
-        icon.classList.replace("checkIconHidden", "checkIcon");
+        goodIcon.classList.replace("checkIconHidden", "checkIcon");
+        badIcon.classList.replace("badIcon", "badIconHidden");
     }
     else {
-        icon.classList.replace("checkIcon", "checkIconHidden");
+        goodIcon.classList.replace("checkIcon", "checkIconHidden");
+        badIcon.classList.replace("badIconHidden", "badIcon");
     }
 }
 
@@ -229,14 +276,21 @@ function formatNumber(inputElement) {
     inputElement.value = dynamicValue;
 }
 //Validación número telefónico
-function validateNumber(inputElement, icon) {
+function validateNumber(inputElement, goodIcon, badIcon = document.createElement("i")) {
     let dynamicValue = inputElement.value;
 
     if (dynamicValue.length >= 8 && /^[0-9]+$/.test(dynamicValue)) {
-        icon.classList.replace("checkIconHidden", "checkIcon");
+        goodIcon.classList.replace("checkIconHidden", "checkIcon");
+        badIcon.classList.replace("badIcon", "badIconHidden");
     }
-    else {
-        icon.classList.replace("checkIcon", "checkIconHidden");
+    else if (dynamicValue.length !== 0 && dynamicValue.length < 8) {
+        goodIcon.classList.replace("checkIcon", "checkIconHidden");
+        badIcon.classList.replace("badIconHidden", "badIcon");
+
+    }
+    if (dynamicValue.length === 0) {
+        goodIcon.classList.replace("checkIcon", "checkIconHidden");
+        badIcon.classList.replace("badIcon", "badIconHidden");
     }
 
 }
@@ -330,6 +384,7 @@ function hideElement(element) {
 window.addEventListener("load", async () => {
     if(checkRut) {
         validateRut(inputRut, checkRut);
+        document.getElementById("digitoVerificador").value = "";
     }
     if(checkName) {
         validateAlpha(inputName, checkName);
@@ -358,18 +413,26 @@ window.addEventListener("load", async () => {
 /*SELECCION DE ELEMENTO Y APLICACIÓN DE EVENTOS*/
 //RUT
 const inputRut = document.getElementById("input-rut");
+const inputRutLogin = document.getElementById("input-rut-login");
 const checkRut = document.getElementById("check-rut");
+const xmarkRut = document.getElementById("xmark-rut");
 //const inputDigitRut = document.getElementById("digito-verificador");
 if(inputRut) {
     //Evento formato
     inputRut.addEventListener('input', ()=> {
-        formatRut(inputRut);
+        formatRut(inputRut, "signup");
+    });
+}
+if(inputRutLogin) {
+    //Evento formato
+    inputRutLogin.addEventListener('input', ()=> {
+        formatRut(inputRutLogin, "login");
     });
 }
 if(checkRut) {
     //Evento validación
     inputRut.addEventListener('blur', ()=> {
-        validateRut(inputRut, checkRut);
+        validateRut(inputRut, checkRut, xmarkRut);
         //calculateValidateRut(inputRut, inputDigitRut);
     });
 }
@@ -379,6 +442,7 @@ if(checkRut) {
 //NOMBRE
 const inputName = document.getElementById("input-name");
 const checkName = document.getElementById("check-name");
+const xmarkName = document.getElementById("xmark-name");
 if(inputName) {
     //Evento formato
     inputName.addEventListener('input', ()=> {
@@ -386,7 +450,7 @@ if(inputName) {
     });
     //Evento validación
     inputName.addEventListener('blur', ()=> {
-        validateAlpha(inputName, checkName);
+        validateAlpha(inputName, checkName, xmarkName);
     });
 }
 
@@ -395,6 +459,7 @@ if(inputName) {
 //APELLIDO
 const inputLastName = document.getElementById("input-lastname");
 const checkLastName = document.getElementById("check-lastname");
+const xmarkLastName = document.getElementById("xmark-lastname");
 if(inputLastName) {
     //Evento formato
     inputLastName.addEventListener('input', ()=> {
@@ -402,7 +467,7 @@ if(inputLastName) {
     });
     //Evento validación
     inputLastName.addEventListener('blur', ()=> {
-        validateAlpha(inputLastName, checkLastName);
+        validateAlpha(inputLastName, checkLastName, xmarkLastName);
     });
 }
 
@@ -411,6 +476,7 @@ if(inputLastName) {
 //CORREO ELECTRONICO
 const inputEmail = document.getElementById("input-email");
 const checkEmail = document.getElementById("check-email");
+const xmarkEmail = document.getElementById("xmark-email");
 if(inputEmail) {
     //Evento formato
     inputEmail.addEventListener('input', ()=> {
@@ -418,7 +484,7 @@ if(inputEmail) {
     });
     //Evento validación
     inputEmail.addEventListener('blur', ()=> {
-        validateEmail(inputEmail, checkEmail);
+        validateEmail(inputEmail, checkEmail, xmarkEmail);
     });
 }
 
@@ -428,10 +494,11 @@ if(inputEmail) {
 const inputPassword = document.getElementById("input-password");
 const eyeicon = document.getElementById("eye-slash-icon");
 const checkPassword = document.getElementById("check-password");
+const xmarkPassword = document.getElementById("xmark-password");
 if(inputPassword) {
     //Evento validación
     inputPassword.addEventListener('blur', ()=> {
-        validatePassword(inputPassword, checkPassword);
+        validatePassword(inputPassword, checkPassword, xmarkPassword);
     });
     //Mostrar y/o ocultar contraseña
     eyeicon.addEventListener("click", ()=>{
@@ -444,10 +511,11 @@ if(inputPassword) {
 //CONFIRMAR CONTRASEÑA
 const inputConfirmPassword = document.getElementById("input-confirm_password")
 const checkConfirmPassword = document.getElementById("check-confirm_password");
+const xmarkConfirmPassword = document.getElementById("xmark-confirm_password");
 if(inputConfirmPassword) {
     //Evento validación
     inputConfirmPassword.addEventListener('blur', ()=> {
-        validateConfirmPassword(inputPassword.value, inputConfirmPassword, checkConfirmPassword);
+        validateConfirmPassword(inputPassword.value, inputConfirmPassword, checkConfirmPassword, xmarkConfirmPassword);
     });
 }
 
@@ -456,6 +524,7 @@ if(inputConfirmPassword) {
 //TELEFONO
 const inputNumber = document.getElementById("input-number");
 const checkNumber = document.getElementById("check-number");
+const xmarkNumber = document.getElementById("xmark-number");
 if(inputNumber) {
     //Evento formato
     inputNumber.addEventListener('input', ()=> {
@@ -463,7 +532,7 @@ if(inputNumber) {
     });
     //Evento validación
     inputNumber.addEventListener('blur', ()=> {
-        validateNumber(inputNumber, checkNumber);
+        validateNumber(inputNumber, checkNumber, xmarkNumber);
     });
 }
 

@@ -18,26 +18,30 @@
                     <div class="input-box">
                         <i class="fa-solid fa-id-card"></i>
                         {{form.rutField}}
-                        <!--<input id="digito-verificador" type="text" style="width: 30px;">-->
+                        <input id="digitoVerificador" type="text" style="width: 20px; text-align: center;" readonly>
                         <i id="check-rut" class="fa-solid fa-circle-check checkIconHidden"></i>
+                        <i id="xmark-rut" class="fa-solid fa-circle-xmark badIconHidden"></i>
                     </div>
                     {# Nombre #}
                     <div class="input-box">
                         <i class="fa-solid fa-user"></i>
                         {{form.nameField}}
                         <i id="check-name" class="fa-solid fa-circle-check checkIconHidden"></i>
+                        <i id="xmark-name" class="fa-solid fa-circle-xmark badIconHidden"></i>
                     </div>
                     {# Apellido #}
                     <div class="input-box">
                         <i class="fa-solid fa-user" style="opacity: 0;"></i>
                         {{form.lastNameField}}
                         <i id="check-lastname" class="fa-solid fa-circle-check checkIconHidden"></i>
+                        <i id="xmark-lastname" class="fa-solid fa-circle-xmark badIconHidden"></i>
                     </div>
                     {# Correo electrónico #}
                     <div class="input-box">
                         <i class="fa-solid fa-envelope"></i>
                         {{form.emailField}}
                         <i id="check-email" class="fa-solid fa-circle-check checkIconHidden"></i>
+                        <i id="xmark-email" class="fa-solid fa-circle-xmark badIconHidden"></i>
                     </div>
                     {# Contraseña #}
                     <label style="
@@ -51,12 +55,14 @@
                         {{form.passwordField}}
                         <i id="eye-slash-icon" class="fa-solid fa-eye-slash"></i>
                         <i id="check-password" class="fa-solid fa-circle-check checkIconHidden"></i>
+                        <i id="xmark-password" class="fa-solid fa-circle-xmark badIconHidden"></i>
                     </div>
                     {# Confirmar contraseña #}
                     <div class="input-box">
                         <i class="fa-solid fa-lock" style="opacity: 0;"></i>
                         {{form.confirmPasswordField}}
                         <i id="check-confirm_password" class="fa-solid fa-circle-check checkIconHidden"></i>
+                        <i id="xmark-confirm_password" class="fa-solid fa-circle-xmark badIconHidden"></i>
                     </div>
                     {# Número de teléfono #}
                     <div class="input-box">
@@ -64,6 +70,7 @@
                         <input type="text" value="+569" readonly style="width: 50px;">
                         {{form.numberField}}
                         <i id="check-number" class="fa-solid fa-circle-check checkIconHidden"></i>
+                        <i id="xmark-number" class="fa-solid fa-circle-xmark badIconHidden"></i>
                     </div>
                 </div>
 
@@ -74,6 +81,7 @@
                         <i class="fa-solid fa-briefcase"></i>
                         <select name="profile" id="selectProfile"></select>
                         <i id="checkSelectProfile" class="fa-solid fa-circle-check checkIconHidden"></i>
+                        <i id="xmarkSelectProfile" class="fa-solid fa-circle-xmark badIconHidden"></i>
                     </div>
                     <br>
                     {# Estación de bomberos #}
@@ -83,18 +91,21 @@
                         <i class="fa-solid fa-map-location-dot"></i>
                         <select name="region" id="selectRegion"></select>
                         <i id="checkSelectRegion" class="fa-solid fa-circle-check checkIconHidden"></i>
+                        <i id="xmarkSelectRegion" class="fa-solid fa-circle-xmark badIconHidden"></i>
                     </div>
                     {# Comuna #}
                     <div class="input-box">
                         <i class="fa-solid fa-map-location-dot" style="opacity: 0;"></i>
                         <select name="comune" id="selectComune"></select>
                         <i id="checkSelectComune" class="fa-solid fa-circle-check checkIconHidden"></i>
+                        <i id="xmarkSelectComune" class="fa-solid fa-circle-xmark badIconHidden"></i>
                     </div>
                     {# Estación #}
                     <div class="input-box">
                         <i class="fa-solid fa-warehouse"></i>
                         <select name="station" id="selectStation"></select>
                         <i id="checkSelectStation" class="fa-solid fa-circle-check checkIconHidden"></i>
+                        <i id="xmarkSelectStation" class="fa-solid fa-circle-xmark badIconHidden"></i>
                     </div>
                     {% csrf_token %}
                     {# Caja de Botones #}

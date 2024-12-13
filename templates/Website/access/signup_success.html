@@ -3,13 +3,18 @@
 {% block title %}Registrate{% endblock %}
 
         {% block content %}
-        
-        <div class="center-container">
-            <div class="center-container__title">
-                <h1>Registro completado</h1>
+        <div class="center-card">
+            <div class="center-card__header">
+                <img class="center-card__logo" src="{% static 'images/logo.webp' %}" alt="">
+                <h3 class="center-card__name">Registro completado</h3>
             </div>
-            <div class="center-container__body">
-                Su cuenta ha sido creada correctamente y se encuentra a la espera de que un superior le de aprobación. Cuando todo esté en orden, recibirás un mensaje en tu correo indicándote que ya puedes iniciar sesión
+            <div class="center-card__content">
+                <p class="center-card__p"><b>Su cuenta ha sido creada correctamente</b> y se encuentra a la espera de que un superior le de <b>aprobación</b>. 
+                    
+                    Cuando todo esté en orden, <b>recibirás un email</b> indicándote que ya puedes iniciar sesión</p>
+                <div class="button-box">
+                    <a class="button back_red white" href="{% url 'website-ruta_login' %}">Finalizar</a>
+                </div>
             </div>
         </div>
 

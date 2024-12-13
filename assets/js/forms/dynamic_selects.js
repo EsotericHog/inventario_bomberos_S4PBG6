@@ -266,10 +266,12 @@ const listProfiles = async () => {
     selectProfile.addEventListener("change", (event) => {
         const value = event.target.value;
         if(value == 0) {
-            checkSelectProfile.classList.replace("checkIcon", "checkIconHidden")
+            checkSelectProfile.classList.replace("checkIcon", "checkIconHidden");
+            xmarkSelectProfile.classList.replace("badIconHidden", "badIcon");
         }
         else {
-            checkSelectProfile.classList.replace("checkIconHidden", "checkIcon")
+            checkSelectProfile.classList.replace("checkIconHidden", "checkIcon");
+            xmarkSelectProfile.classList.replace("badIcon", "badIconHidden");
         }
     })
 }
@@ -292,9 +294,14 @@ const listStations = async (id) => {
                     options += `<option value=${station.id}>${station.name}</option>`;
                 })
                 selectStation.innerHTML=options;
+
+                xmarkSelectStation.classList.replace("badIcon", "badIconHidden");
+                checkSelectStation.classList.replace("checkIcon", "checkIconHidden");
             }
             else {
-                selectStation.innerHTML=``;
+                selectStation.innerHTML=`<option value=0>Seleccionar estación</option>`;
+
+                xmarkSelectStation.classList.replace("badIconHidden", "badIcon");
             }
         }
         catch(error) {
@@ -305,10 +312,12 @@ const listStations = async (id) => {
     selectStation.addEventListener("change", (event) => {
         const value = event.target.value;
         if(value == 0) {
-            checkSelectStation.classList.replace("checkIcon", "checkIconHidden")
+            checkSelectStation.classList.replace("checkIcon", "checkIconHidden");
+            xmarkSelectStation.classList.replace("badIconHidden", "badIcon");
         }
         else {
-            checkSelectStation.classList.replace("checkIconHidden", "checkIcon")
+            checkSelectStation.classList.replace("checkIconHidden", "checkIcon");
+            xmarkSelectStation.classList.replace("badIcon", "badIconHidden");
         }
     })
 }
@@ -330,6 +339,12 @@ const listComunes = async (id) => {
                     options += `<option value=${comune.id}>${comune.name}</option>`;
                 })
                 selectComune.innerHTML=options;
+
+                xmarkSelectComune.classList.replace("badIcon", "badIconHidden");
+                checkSelectComune.classList.replace("checkIcon", "checkIconHidden");
+
+                xmarkSelectStation.classList.replace("badIcon", "badIconHidden");
+                checkSelectStation.classList.replace("checkIcon", "checkIconHidden");
             }
             else {
                 selectComune.innerHTML=``;
@@ -343,10 +358,16 @@ const listComunes = async (id) => {
     selectComune.addEventListener("change", (event) => {
         const value = event.target.value;
         if(value == 0) {
-            checkSelectComune.classList.replace("checkIcon", "checkIconHidden")
+            checkSelectComune.classList.replace("checkIcon", "checkIconHidden");
+            xmarkSelectComune.classList.replace("badIconHidden", "badIcon");
+
+            checkSelectStation.classList.replace("checkIcon", "checkIconHidden");
+            xmarkSelectStation.classList.replace("badIconHidden", "badIcon");
         }
         else {
-            checkSelectComune.classList.replace("checkIconHidden", "checkIcon")
+            checkSelectComune.classList.replace("checkIconHidden", "checkIcon");
+            xmarkSelectComune.classList.replace("badIcon", "badIconHidden");
+
         }
         listStations(value);
     })
@@ -363,12 +384,15 @@ const listRegions = async() => {
         selectRegion.addEventListener("change", (event) => {
             const value = event.target.value;
             if(value == 0) {
-                checkSelectRegion.classList.replace("checkIcon", "checkIconHidden")
+                checkSelectRegion.classList.replace("checkIcon", "checkIconHidden");
+                xmarkSelectRegion.classList.replace("badIconHidden", "badIcon");
             }
             else {
-                checkSelectRegion.classList.replace("checkIconHidden", "checkIcon")
+                checkSelectRegion.classList.replace("checkIconHidden", "checkIcon");
+                xmarkSelectRegion.classList.replace("badIcon", "badIconHidden");
             }
             listComunes(value);
+            listStations(0);
         });
     }
     

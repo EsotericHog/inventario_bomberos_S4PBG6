@@ -130,3 +130,71 @@
     height: 100%;
     background-color: green;
 }
+
+
+/* Tarjeta para el registro exitoso */
+/* Footer de tarjeta */
+.center-card__footer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.center-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 400px;
+    box-shadow: 10px 10px 30px var(--color-black);
+    background-color: white;
+    padding: 10px 30px;
+    gap: 30px;
+}
+
+/* Encabezado de tarjeta (Logo, nombre del sistema) */
+.center-card__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    gap: 15px;
+}
+.center-card__logo {
+    width: 40px;
+}
+
+/* Título de la plantilla */
+.center-card__title {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Formulario */
+.center-card__content {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+}
+/* Formulario 2 bloques*/
+.center-card__content2 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.center-card__subcontent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 48%;
+}
+.center-card__p {
+    font-size: 20px;
+}
+.center-card__p b {
+    font-size: 20px;
+}
